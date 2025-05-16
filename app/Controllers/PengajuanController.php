@@ -58,44 +58,34 @@ class PengajuanController extends ResourceController
      * @return ResponseInterface
      */
     public function create()
-    {
-        $rules = [
-            'NIM' => 'required',
-            'nama' => 'required',
-            'kelas' => 'required',
-            'semester' => 'required',
-            'tgl_pengajuan' => 'required',
-            'semester_cuti' => 'required',
-            'tgl_mulai_cuti' => 'required',
-            'tgl_selesai_cuti' => 'required',
-            'alasan' => 'required',
-            'dokumen' => 'required',
-            'status_pengajuan' => 'required'
-        ];
+{
+    $data = $this->request->getJSON(true); // Ambil input JSON sebagai array
 
-        if (!$this->validate($rules)) {
-            return $this->fail($this->validator->getErrors());
-        }
+    $rules = [
+        'NIM' => 'required',
+        'nama' => 'required',
+        'kelas' => 'required',
+        'semester' => 'required',
+        'tgl_pengajuan' => 'required',
+        'semester_cuti' => 'required',
+        'tgl_mulai_cuti' => 'required',
+        'tgl_selesai_cuti' => 'required',
+        'alasan' => 'required',
+        'dokumen' => 'required',
+        'status_pengajuan' => 'required'
+    ];
 
-        $data = [
-            'NIM' => $this->request->getVar('NIM'),
-            'nama' => $this->request->getVar('nama'),
-            'kelas' => $this->request->getVar('kelas'),
-            'semester' => $this->request->getVar('semester'),
-            'tgl_pengajuan' => $this->request->getVar('tgl_pengajuan'),
-            'semester_cuti' => $this->request->getVar('semester_cuti'),
-            'tgl_mulai_cuti' => $this->request->getVar('tgl_mulai_cuti'),
-            'tgl_selesai_cuti' => $this->request->getVar('tgl_selesai_cuti'),
-            'alasan' => $this->request->getVar('alasan'),
-            'dokumen' => $this->request->getVar('dokumen'),
-            'status_pengajuan' => $this->request->getVar('status_pengajuan')
-        ];
-
-        $this->model->tambahpengajuan($data);
-        return $this->respondCreated(
-            'Messege : Pengajuan Berhasil Ditambahkan'
-        );
+    if (!$this->validateData($data, $rules)) {
+        return $this->failValidationErrors($this->validator->getErrors());
     }
+
+    $this->model->tambahpengajuan($data);
+
+    return $this->respondCreated([
+        'message' => 'Pengajuan berhasil ditambahkan'
+    ]);
+}
+
 
     /**
      * Return the editable properties of a resource object.
