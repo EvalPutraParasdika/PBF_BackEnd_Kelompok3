@@ -1,68 +1,130 @@
-# CodeIgniter 4 Application Starter
+# PBF_BackEnd_Kelompok3
 
-## What is CodeIgniter?
+## Deskripsi
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+Repositori ini berisi kode sumber untuk bagian Back-End dari proyek PBF (Proyek Bersama Frontend dan Backend) yang dikembangkan oleh Kelompok 3. Back-End ini dibangun menggunakan framework Laravel PHP.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## Fitur
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+*   Autentikasi dan otorisasi pengguna
+*   Manajemen data (CRUD - Create, Read, Update, Delete)
+*   API untuk komunikasi dengan Front-End
+*   Dokumentasi API (Postman Collection)
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
 
-## Installation & updates
+## Teknologi yang Digunakan
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+*   [CodeIgniter 4](https://codeigniter.com/) - PHP Framework
+*   [PHP](https://www.php.net/) - Bahasa Pemrograman
+*   [MySQL](https://www.mysql.com/) - Database 
+*   [Composer](https://getcomposer.org/) - Dependency Manager
+*   [JWT](https://jwt.io/) - JSON Web Token 
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
 
-## Setup
+## Persyaratan Sistem
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+*   PHP >= 7.4
+*   Composer
+*   MySQL / PostgreSQL (atau database lain yang kompatibel dengan Laravel)
+*   Web Server (Apache, Nginx)
 
-## Important Change with index.php
+## Instalasi
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+1.  Clone repositori ini:
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+    ```bash
+    git clone https://github.com/EvalPutraParasdika/PBF_BackEnd_Kelompok3.git
+    ```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+2.  Masuk ke direktori proyek:
 
-## Repository Management
+    ```bash
+    cd PBF_BackEnd_Kelompok3
+    ```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+3.  Install dependencies menggunakan Composer:
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+    ```bash
+    composer install
+    ```
 
-## Server Requirements
+4.  Salin file `.env.example` ke `.env` dan konfigurasi pengaturan database:
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+    ```bash
+    cp .env.example .env
+    ```
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+    Edit file `.env` dan sesuaikan pengaturan database (DB\_DATABASE, DB\_USERNAME, DB\_PASSWORD, dll.) sesuai dengan konfigurasi lokal Anda.
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+5.  Jalankan migrasi database:
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+    ```bash
+    php spark migrate
+    ```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+6.  Seed database (opsional, jika ada data dummy):
+
+    ```bash
+    php spark db:seed
+    ```
+
+7.  Jalankan server pengembangan CI4:
+
+    ```bash
+    php spark serve
+    ```
+
+    Aplikasi akan berjalan di `http://localhost:8080` (atau port lain yang tersedia).
+
+## Konfigurasi
+
+*   **File .env:**  Konfigurasi utama aplikasi disimpan dalam file `.env`.  Pastikan untuk mengkonfigurasi pengaturan database dan pengaturan lainnya sesuai dengan lingkungan Anda.
+*   **Konfigurasi Database:**  Pastikan konfigurasi database di file `.env` sesuai dengan pengaturan database lokal Anda.
+*   **Variabel Lingkungan:**  Gunakan variabel lingkungan untuk menyimpan pengaturan sensitif seperti kunci API dan kredensial database.
+
+## Penggunaan
+
+*   **API Endpoints:** 
+    *   `http://localhost:8080/auth/register` - Mendaftarkan pengguna baru
+    *   `http://localhost:8080/auth/login` - Login pengguna
+    *   `http://localhost:8080/auth/me` - Cek profil pengguna
+
+    *   `http://localhost:8080/jurusan` - Create & Get data jurusan
+    *   `http://localhost:8080/jurusan/(id_jurusan)` - Dellete & Edit data jurusan
+
+    *   `http://localhost:8080/mahasiswa` - Create & Get data Mahasiswa
+    *   `http://localhost:8080/mahasiswa/(nim)` - Dellete & Edit data mahasiswa
+
+    *   `http://localhost:8080/pengajuan` - Create & Get data pengajuan
+    *   `http://localhost:8080/pengajuan/(id_pengajuan)` - Dellete & Edit data pengajuan
+
+    *   `http://localhost:8080/prodi` - Create & Get data prodi
+    *   `http://localhost:8080/pengajuan/(id_prodi)` - Dellete & Edit data prodi
+
+    *   `http://localhost:8080/staff)` - Dellete & Edit data staff
+    *   `http://localhost:8080/staff/(NIP)` - Dellete & Edit data staff
+    *   
+*   **Autentikasi:**  Aplikasi menggunakan JWT untuk autentikasi.  Token JWT harus disertakan dalam header `Authorization` dengan skema `Bearer` untuk mengakses endpoint yang dilindungi.
+
+## Testing
+
+*   Jalankan test dengan PHPUnit:
+
+    ```bash
+    php spark test
+    ```
+
+## Kontribusi
+
+Kami menerima kontribusi dari siapa saja. Jika Anda ingin berkontribusi, silakan fork repositori ini, buat branch dengan fitur baru Anda, dan kirimkan pull request.
+
+## Anggota Kelompok
+
+*   Eval Putra Parasdika
+*   Esnaeni Wulan Andari
+*   Adimas Prawit Akbar
+*   Khidir Afwan Amlabar
+
+## Lisensi
+
+Repositori ini dilisensikan di bawah Lisensi MIT. Lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
